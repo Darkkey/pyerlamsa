@@ -28,13 +28,13 @@ Connecting to erlamsa cloud:
 
 ## Short API reference
 
-*class* **Erlamsa**(uri, token = None, timeout = 5*)
+*class* **Erlamsa**(*uri, token = None, timeout = 5*): 
+
     Creating *Erlamsa class* instance to connect to the instance at *uri* with *token*. In case instance is not require authentication to process fuzzing requests token could be omitted. *timeout* specifices the amount of seconds that **call(..)** function will wait before returning a timeout. Note, that, depending on an amount of input data, fuzzing could take from milliseconds to minutes, so choose this number wisely. Usually, erlamsa maximum fuzzing time is 60-90 seconds, however it will take less than second for small amounts of data.
 
 **call**(*data, seed = None, mutations = None, patterns = None, blockscale = None*):
-    Calls to the remote fuzzing instance. Returns tuple ia form of `True`,*fuzzed_data* in case of success, `False`,*data* in case of failure. Generates **ErlamsaNotAuthorized** exception in case of invalid token (or attempt to connect to the instance that requires token without suppliying one). Generates **ErlamsaInvalidParams** exception if any of additional supplied paramaters are invalid. Not every call to **call(..)** always returns `True` along with fuzzed data, because sometimes fuzzing may fail to produce anything meaningful in a given time. 
-    
-    Additional parameters are strings in a form that they are passed to erlamsa commandline (refer to excerpt from `erlamsa --help` and `erlamsa --list` output below or to offical erlamsa github https://github.com/Darkkey/erlamsa for more info). Additional parameters should be use only if want to narrow / direct the fuzzing process. In most cases there is no need to specify them.
+
+    Calls to the remote fuzzing instance. Returns tuple ia form of `True`,*fuzzed_data* in case of success, `False`,*data* in case of failure. Generates **ErlamsaNotAuthorized** exception in case of invalid token (or attempt to connect to the instance that requires token without suppliying one). Generates **ErlamsaInvalidParams** exception if any of additional supplied paramaters are invalid. Not every call to **call(..)** always returns `True` along with fuzzed data, because sometimes fuzzing may fail to produce anything meaningful in a given time. Additional parameters are strings in a form that they are passed to erlamsa commandline (refer to excerpt from `erlamsa --help` and `erlamsa --list` output below or to offical erlamsa github https://github.com/Darkkey/erlamsa for more info). Additional parameters should be use only if want to narrow / direct the fuzzing process. In most cases there is no need to specify them.
 
 ## erlamsa mutations and parameters
 
@@ -42,7 +42,7 @@ Connecting to erlamsa cloud:
 
 *mutations* -- list, which mutations to use with priorities [default:                      `nil=0,zip,uri,b64=2,len=2,fo=2,fn,ft=2,lrs,lis,lp,ls,lr,lri,lr2,lds,ld,srnd,snand,sd,sr,sp,br,ber,bi,bf,bed,bei,bd,ts2=2,tr=2,ts1=2,num=3,td,tr2,ad,ab,ui=2,uw,js=2,sgm=10`]. Note, that complex mutations (e.g. json (`js`) and SGML (`sgm`) could reuse other mutations on internal elements). Default priority is 1.
 
-*patterns*  -- list, which mutation patterns to use with priorities [default:                  `nu,cp,ar,cs,sz,sk,bu,nd,od`]. Note, that complex patterns (e.g. size field (`sz`) could reuse other mutations on internal elements)
+*patterns*  -- list, which mutation patterns to use with priorities [default:                  `nu,cp,ar,cs,sz,sk,bu,nd,od`]. Note, that complex patterns (e.g. size field (`sz`) could reuse other mutations on internal elements).
 
 Mutations and patterns short description (output from `erlamsa --list`):
 ```
