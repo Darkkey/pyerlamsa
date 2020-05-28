@@ -63,7 +63,8 @@ class Erlamsa:
                 if r.headers['erlamsa-status'] == "500":
                     raise ErlamsaInvalidParams("Invalid parameters")
                 else:
-                    self.session = r.headers['erlamsa-session']
+                    if r.headers.get('erlamsa-session'):
+                        self.session = r.headers['erlamsa-session']
                     return (True, fuzzed_string)
             else:
                 return (False, data)
